@@ -1,4 +1,5 @@
-package subway.pathservice;
+package subway.service.pathservice;
 
 public class TimeCalculatorService {
+
 }

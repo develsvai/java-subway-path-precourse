@@ -11,9 +11,9 @@ public class InputView {
         this.scanner = scanner;
     }
 
-    public int chooseFunctionMenu(){
+    public String chooseFunctionMenu(){
         System.out.println(MENU_PROMPT);
-        return scanner.nextInt();
+        return scanner.nextLine();
     }
 
     public String DepartureStationInput(){
@@ -23,7 +23,7 @@ public class InputView {
 
     public String DestinationStationInput(){
         System.out.println(DESTINATIONSTATION);
-        scanner.nextLine();
+        return scanner.nextLine();
     }
 
 

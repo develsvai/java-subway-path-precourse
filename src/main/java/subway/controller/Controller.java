@@ -1,8 +1,10 @@
 package subway.controller;
-
-import java.util.List;
+import subway.dto.InputFunctionNumberDto;
+import subway.service.pathservice.DistanceCalculatorService;
+import subway.service.pathservice.DistanceCalculatorService.DistanceInfo;
 import subway.view.inputview.InputView;
 import subway.view.outputview.OutputView;
+
 
 public class Controller {
     private final InputView inputView;
@@ -16,20 +18,55 @@ public class Controller {
 
 
     public void startService(){
-        InputMainMenu();
+        InputFunctionNumberDto inputFunctionNumberDto = new InputFunctionNumberDto();
+        inputFunctionNumberDto.transferViewToModel(InputMainMenu());
 
+
+        if(inputFunctionNumberDto.getFunctionNumber() == 1) {
+            int serviceNumber = inputChoosePathService();
+
+            if (serviceNumber == 1) {
+                String startStationName = inputDepartureStation();
+                String endStationName = inputDestinationStation();
+                DistanceInfo distanceInfo = DistanceCalculatorService.getDistanceInfo(startStationName,endStationName);
+
+            }
+
+            if(serviceNumber ==2) {
+
+            }
+        }
     }
+
+
 
 
     private int InputMainMenu(){
-        return inputView.chooseFunctionMenu();
+        outputView.displayMainMenu();
+        String function = inputView.chooseFunctionMenu();
+
+        if( function.equalsIgnoreCase("Q")){
+            System.exit(0);
+        }
+
+        return Integer.parseInt(function);
+    }
+
+    private int inputChoosePathService() {
+        outputView.displayPathServiceMenu();
+        String function = inputView.chooseFunctionMenu();
+        if (function.equalsIgnoreCase("B")) {
+            System.exit(0);
+        }
+        return Integer.parseInt(function);
     }
 
 
-
-    private String InputDepartureStation(){
+    private String inputDepartureStation(){
         return inputView.DepartureStationInput();
+    }
 
-
+    private String inputDestinationStation(){
+        return inputView.DestinationStationInput();
     }
 }
